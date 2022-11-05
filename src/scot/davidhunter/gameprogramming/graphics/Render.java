@@ -1,10 +1,14 @@
 package scot.davidhunter.gameprogramming.graphics;
 
+import scot.davidhunter.gameprogramming.Display;
+
 public class Render
 {
 	public final int width;
 	public final int height;
 	public final int[] pixels;
+	
+	private Display display;
 	
 	public Render( int width, int height )
 	{
@@ -19,17 +23,20 @@ public class Render
 		{
 			int yPix = y + yOffset;
 			
-			if ( yPix < 0 || yPix >= 600 )
+			if ( yPix < 0 || yPix >= display.HEIGHT )
 				continue;
 			
 			for ( int x = 0; x < render.width; x++ )
 			{
 				int xPix = x + xOffset;
 				
-				if ( xPix < 0 || xPix >= 800 )
+				if ( xPix < 0 || xPix >= display.WIDTH )
 					continue;
 				
-				pixels[ xPix + yPix * width ] = render.pixels[ x + y * render.width ];
+				int alpha = render.pixels[ x + y * render.width ];
+				
+				if ( alpha > 0 )
+					pixels[ xPix + yPix * width ] = alpha;
 			}
 		}
 	}
