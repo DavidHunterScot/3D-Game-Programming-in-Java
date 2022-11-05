@@ -7,19 +7,30 @@ public class Render3D extends Render
 		super( width, height );
 	}
 	
+	double time = 0;
+	
 	public void floor()
 	{
 		for ( int y = 0; y < height; y++ )
 		{
-			double yDepth = y - height / 2.4;
-			double z = 100.0 / yDepth;
+			double ceiling = ( y - height / 2.0 ) / height;
+			
+			if ( ceiling < 0 )
+				ceiling = -ceiling;
+			
+			double z = 8 / ceiling;
+			
+			time += 0.0005;
 			
 			for ( int x = 0; x < width; x++ )
 			{
-				double depth = x - width / 2;
+				double depth = ( x - width / 2.0 ) / height;
 				depth *= z;
-				int xx = (int) ( depth ) & 5;
-				pixels[ x + y * width ] = xx * 128;
+				double xx = depth;
+				double yy = z + time;
+				int xPix = (int) ( xx );
+				int yPix = (int) ( yy );
+				pixels[ x + y * width ] = ( ( xPix & 15 ) * 16 ) | ( ( yPix & 15 ) * 16 ) << 8;
 			}
 		}
 	}
