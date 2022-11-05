@@ -22,9 +22,7 @@ public class Game
 		boolean left = key[ KeyEvent.VK_A ];
 		boolean back = key[ KeyEvent.VK_S ];
 		boolean right = key[ KeyEvent.VK_D ];
-		boolean turnLeft = key[ KeyEvent.VK_LEFT ];
-		boolean turnRight = key[ KeyEvent.VK_RIGHT ];
 		
-		controls.tick( forward, left, back, right, turnLeft, turnRight );
+		controls.tick( forward, left, back, right );
 	}
 }

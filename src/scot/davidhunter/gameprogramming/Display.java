@@ -1,8 +1,11 @@
 package scot.davidhunter.gameprogramming;
 
 import java.awt.Canvas;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -10,6 +13,7 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 
 import scot.davidhunter.gameprogramming.graphics.Screen;
+import scot.davidhunter.gameprogramming.input.Controller;
 import scot.davidhunter.gameprogramming.input.InputHandler;
 
 public class Display extends Canvas implements Runnable
@@ -27,6 +31,9 @@ public class Display extends Canvas implements Runnable
 	private Game game;
 	private int[] pixels;
 	private InputHandler input;
+	
+	private int oldX = 0;
+	private int newX = 0;
 	
 	public Display()
 	{
@@ -112,6 +119,19 @@ public class Display extends Canvas implements Runnable
 			
 			render();
 			frames++;
+			
+			newX = InputHandler.MouseX;
+			if ( newX > oldX )
+				Controller.turnRight = true;
+			if ( newX < oldX )
+				Controller.turnLeft = true;
+			if ( newX == oldX )
+			{
+				Controller.turnLeft = false;
+				Controller.turnRight = false;
+			}
+			oldX = newX;
+			
 		}
 	}
 	
@@ -145,10 +165,13 @@ public class Display extends Canvas implements Runnable
 	
 	public static void main( String[] args )
 	{
+		BufferedImage cursor = new BufferedImage( 16, 16, BufferedImage.TYPE_INT_ARGB );
+		Cursor blank = Toolkit.getDefaultToolkit().createCustomCursor( cursor, new Point( 0, 0 ), "Blank" );
 		Display game = new Display();
 		JFrame frame = new JFrame();
 		frame.add( game );
 		frame.pack();
+		frame.getContentPane().setCursor( blank );
 		frame.setTitle( TITLE );
 		frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		frame.setLocationRelativeTo( null );
