@@ -7,6 +7,7 @@ import scot.davidhunter.gameprogramming.Game;
 public class Screen extends Render
 {
 	private Render test;
+	private Render3D render;
 	
 	public Screen( int width, int height )
 	{
@@ -15,6 +16,7 @@ public class Screen extends Render
 		Random random = new Random();
 		
 		test = new Render( 256, 256 );
+		render = new Render3D( width, height );
 		
 		for ( int i = 0; i < 256 * 256; i++ )
 		{
@@ -31,8 +33,9 @@ public class Screen extends Render
 		{
 			int anim = (int) ( Math.sin( ( game.time + i * 2 ) % 1000.0 / 100 ) * 100 );
 			int anim2 = (int) ( Math.cos( ( game.time + i * 2 ) % 1000.0 / 100 ) * 100 );
-			
-			draw( test, ( width - 256 ) / 2 + anim, ( height - 256 ) / 2 + anim2 );
 		}
+		
+		render.floor();
+		draw( render, 0, 0 );
 	}
 }
