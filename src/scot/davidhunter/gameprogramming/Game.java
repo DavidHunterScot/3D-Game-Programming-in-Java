@@ -6,6 +6,6 @@ public class Game
 	
 	public void tick()
 	{
-		time += 4;
+		time++;
 	}
 }
