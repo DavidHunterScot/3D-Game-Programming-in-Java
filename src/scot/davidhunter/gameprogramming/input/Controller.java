@@ -63,6 +63,7 @@ public class Controller
 			y -= crouchHeight;
 			run = false;
 			crouchWalk = true;
+			walkSpeed = 0.2;
 		}
 		
 		if ( run )
