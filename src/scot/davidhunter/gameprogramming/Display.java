@@ -4,6 +4,8 @@ import java.awt.Canvas;
 
 import javax.swing.JFrame;
 
+import scot.davidhunter.gameprogramming.graphics.Render;
+
 public class Display extends Canvas implements Runnable
 {
 	private static final long serialVersionUID = 1L;
@@ -14,6 +16,12 @@ public class Display extends Canvas implements Runnable
 	
 	private Thread thread;
 	private boolean running = false;
+	private Render render;
+	
+	public Display()
+	{
+		render = new Render( WIDTH, HEIGHT );
+	}
 	
 	private void start()
 	{
@@ -47,8 +55,19 @@ public class Display extends Canvas implements Runnable
 	{
 		while ( running )
 		{
-			
+			tick();
+			render();
 		}
+	}
+	
+	private void tick()
+	{
+		
+	}
+	
+	private void render()
+	{
+		
 	}
 	
 	public static void main( String[] args )
