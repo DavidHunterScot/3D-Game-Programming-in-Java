@@ -1,8 +1,10 @@
 package scot.davidhunter.gameprogramming;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -34,6 +36,7 @@ public class Display extends Canvas implements Runnable
 	
 	private int oldX = 0;
 	private int newX = 0;
+	private int fps;
 	
 	public Display()
 	{
@@ -105,7 +108,7 @@ public class Display extends Canvas implements Runnable
 				
 				if ( tickCount % 60 == 0 )
 				{
-					System.out.println( frames + "fps" );
+					fps = frames;
 					previousTime += 1000;
 					frames = 0;
 				}
@@ -159,6 +162,9 @@ public class Display extends Canvas implements Runnable
 		
 		Graphics g = bs.getDrawGraphics();
 		g.drawImage( img, 0, 0, WIDTH + 10, HEIGHT + 10, null );
+		g.setFont( new Font( "Verdana", 2, 50 ) );
+		g.setColor( Color.YELLOW );
+		g.drawString( fps + " FPS", 20, 50 );
 		g.dispose();
 		bs.show();
 	}
